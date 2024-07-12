@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
     if (user != null) {
       if (user.role == 'admin') {
         Provider.of<UserProvider>(context, listen: false).setUser(user);
-        Navigator.pushReplacementNamed(context, '/dashboard', arguments: user);
+        Navigator.pushReplacementNamed(context, '/drawer', arguments: user);
       } else {
         setState(() {
           _errorMessage = 'Only admin can login';
