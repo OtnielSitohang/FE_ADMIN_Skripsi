@@ -103,7 +103,7 @@ class _DrawerPageState extends State<DrawerPage> {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text(widget.user.namaLengkap),
+              accountName: Text(widget.user.nama_lengkap),
               accountEmail: Text(widget.user.email),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,

@@ -20,16 +20,53 @@ class AuthService {
       );
 
       print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return User.fromJson(data['data']);
+        if (data['data'] != null) {
+          return User.fromJson(data['data']);
+        } else {
+          throw Exception('Invalid response: Data not complete');
+        }
       } else {
-        throw Exception('Failed to login');
+        throw Exception('Failed to login: ${response.statusCode}');
       }
     } catch (e) {
       print('Error during login: $e');
-      return null;
+      throw Exception('Failed to login: $e');
+    }
+  }
+
+  Future<Map<String, dynamic>?> updateProfile(User updatedUser) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$_baseUrl/pengguna/${updatedUser.id}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(updatedUser.toJson()),
+      );
+
+      print('Update Profile Response status: ${response.statusCode}');
+      print('Update Profile Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        // Parse the response body
+        final responseData = jsonDecode(response.body);
+
+        // Check if responseData contains 'data' field
+        if (responseData['data'] != null) {
+          return responseData['data'];
+        } else {
+          throw Exception('Failed to update profile: Data not complete');
+        }
+      } else {
+        throw Exception('Failed to update profile: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error updating profile: $e');
+      throw Exception('Failed to update profile: $e');
     }
   }
 }

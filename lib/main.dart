@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frontadmin/models/UserProvider.dart';
+import 'package:frontadmin/services/auth_service.dart';
 import 'package:provider/provider.dart';
+import 'package:frontadmin/services/theme_provider.dart';
 import 'package:frontadmin/app_router.dart';
-import 'package:frontadmin/services/theme_provider.dart'; // Pastikan file theme_provider.dart sesuai dengan penamaan yang benar
 
 void main() {
   runApp(
@@ -10,6 +11,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        Provider<AuthService>(create: (_) => AuthService()),
       ],
       child: MyApp(),
     ),
