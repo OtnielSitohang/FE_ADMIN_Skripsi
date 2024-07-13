@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontadmin/models/user.dart';
 import 'package:frontadmin/pages/LaporanPage.dart';
+import 'package:frontadmin/pages/PengaturanAkunPage%20.dart';
 import 'package:frontadmin/pages/TambahAdminPage.dart';
 import 'package:frontadmin/pages/TambahLapanganPage.dart';
 import 'package:frontadmin/pages/dashboard_admin_pages.dart';
@@ -32,6 +33,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LaporanPage());
       case '/pengaturan':
         return MaterialPageRoute(builder: (_) => PengaturanPage());
+      case '/pengaturanAkun':
+        return MaterialPageRoute(builder: (_) => PengaturanAkunPage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -15,4 +15,11 @@ class UserProvider with ChangeNotifier {
     _user = null;
     notifyListeners();
   }
+
+  void updateUser(User updatedUser) {
+    if (_user != null) {
+      _user = updatedUser;
+      notifyListeners();
+    }
+  }
 }

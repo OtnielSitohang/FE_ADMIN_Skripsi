@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontadmin/services/theme_provider.dart';
 import 'package:provider/provider.dart';
+import '../services/theme_provider.dart';
 
 class PengaturanPage extends StatelessWidget {
   @override
@@ -21,30 +21,29 @@ class PengaturanPage extends StatelessWidget {
                   .toggleTheme(value);
             },
           ),
-
           ListTile(
             leading: Icon(Icons.account_circle),
             title: Text('Pengaturan Akun'),
             onTap: () {
               Navigator.pushNamed(
-                  context, '/pengaturanAkun'); // Navigasi ke PengaturanAkunPage
+                  context, '/pengaturanAkun'); // Navigate to PengaturanAkunPage
             },
           ),
           ListTile(
             leading: Icon(Icons.lock),
             title: Text('Ubah Password'),
             onTap: () {
-              // Tambahkan navigasi ke halaman ubah password di sini
+              // Add navigation to the password change page here
             },
           ),
           ListTile(
             leading: Icon(Icons.notifications),
             title: Text('Notifikasi'),
             onTap: () {
-              // Tambahkan navigasi ke halaman notifikasi di sini
+              // Add navigation to the notification settings page here
             },
           ),
-          // Tambahkan pengaturan lainnya di sini
+          // Add other settings here
         ],
       ),
     );

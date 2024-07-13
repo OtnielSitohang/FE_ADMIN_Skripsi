@@ -28,4 +28,36 @@ class User {
       role: json['role'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'username': username,
+      'namaLengkap': namaLengkap,
+      'fotoBase64': fotoBase64,
+      'tanggalLahir': tanggalLahir,
+      'email': email,
+      'tempatTinggal': tempatTinggal,
+      'role': role,
+    };
+  }
+
+  User copyWith({
+    String? username,
+    String? namaLengkap,
+    String? fotoBase64,
+    String? tanggalLahir,
+    String? email,
+    String? tempatTinggal,
+    String? role,
+  }) {
+    return User(
+      username: username ?? this.username,
+      namaLengkap: namaLengkap ?? this.namaLengkap,
+      fotoBase64: fotoBase64 ?? this.fotoBase64,
+      tanggalLahir: tanggalLahir ?? this.tanggalLahir,
+      email: email ?? this.email,
+      tempatTinggal: tempatTinggal ?? this.tempatTinggal,
+      role: role ?? this.role,
+    );
+  }
 }
