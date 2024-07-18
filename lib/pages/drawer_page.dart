@@ -158,8 +158,8 @@ class _DrawerPageState extends State<DrawerPage> {
         children: [
           DashboardAdminPage(), // Index 0
           KonfirmasiLapanganPage(), // Index 1
-          TambahCustomerPage(), // Index 2
-          TambahAdminPage(), // Index 3
+          TambahCustomerPage(user: widget.user), // Index 3
+          TambahAdminPage(user: widget.user), // Index 3
           TambahLapanganPage(), // Index 4
           LaporanPage(), // Index 5
           PengaturanPage(), // Index 6

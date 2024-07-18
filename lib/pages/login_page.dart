@@ -27,24 +27,32 @@ class _LoginPageState extends State<LoginPage> {
     final username = _usernameController.text;
     final password = _passwordController.text;
 
-    final user = await _authService.login(username, password);
+    try {
+      final user = await _authService.login(username, password);
 
-    setState(() {
-      _isLoading = false;
-    });
+      setState(() {
+        _isLoading = false;
+      });
 
-    if (user != null) {
-      if (user.role == 'admin') {
-        Provider.of<UserProvider>(context, listen: false).setUser(user);
-        Navigator.pushReplacementNamed(context, '/drawer', arguments: user);
+      if (user != null) {
+        if (user.role == 'admin') {
+          Provider.of<UserProvider>(context, listen: false).setUser(user);
+          Navigator.pushReplacementNamed(context, '/drawer', arguments: user);
+        } else {
+          setState(() {
+            _errorMessage = 'Only admin can login';
+          });
+        }
       } else {
         setState(() {
-          _errorMessage = 'Only admin can login';
+          _errorMessage = 'Invalid username or password';
         });
       }
-    } else {
+    } catch (e) {
       setState(() {
-        _errorMessage = 'Invalid username or password';
+        _isLoading = false;
+        _errorMessage =
+            'Username Atau Password Salah'; // Optional: Display error message
       });
     }
   }
@@ -86,7 +94,9 @@ class _LoginPageState extends State<LoginPage> {
             _isLoading
                 ? CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _login,
+                    onPressed: _isLoading
+                        ? null
+                        : _login, // Disable button if isLoading is true
                     child: Text('Login'),
                   ),
             if (_errorMessage != null) ...[

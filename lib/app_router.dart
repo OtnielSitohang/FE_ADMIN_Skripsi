@@ -24,9 +24,12 @@ class AppRouter {
       case '/konfirmasiLapangan':
         return MaterialPageRoute(builder: (_) => KonfirmasiLapanganPage());
       case '/tambahCustomer':
-        return MaterialPageRoute(builder: (_) => TambahCustomerPage());
+        return MaterialPageRoute(
+            builder: (_) =>
+                TambahCustomerPage(user: settings.arguments as User));
       case '/tambahAdmin':
-        return MaterialPageRoute(builder: (_) => TambahAdminPage());
+        return MaterialPageRoute(
+            builder: (_) => TambahAdminPage(user: settings.arguments as User));
       case '/tambahLapangan':
         return MaterialPageRoute(builder: (_) => TambahLapanganPage());
       case '/laporan':

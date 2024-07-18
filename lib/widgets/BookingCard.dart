@@ -106,28 +106,58 @@ class BookingCard extends StatelessWidget {
   }
 
   void _confirmBooking(BuildContext context, int bookingId) async {
-    final url = 'http://localhost:3000/auth/bookings/confirm/$bookingId';
-
-    try {
-      final response = await http.put(Uri.parse(url));
-
-      if (response.statusCode == 200) {
-        // Successfully confirmed booking
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Booking dikonfirmasi!')),
+    // Tampilkan dialog konfirmasi
+    bool confirm = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Konfirmasi"),
+          content: Text("Apakah Anda yakin ingin mengkonfirmasi booking ini?"),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(false); // Tutup dialog dengan nilai false
+              },
+            ),
+            TextButton(
+              child: Text('Ya'),
+              onPressed: () {
+                Navigator.of(context)
+                    .pop(true); // Tutup dialog dengan nilai true
+              },
+            ),
+          ],
         );
-        // Optionally, update the UI or fetch the updated booking list
-      } else {
-        // Failed to confirm booking
+      },
+    );
+
+    // Jika pengguna mengkonfirmasi, lanjutkan dengan request HTTP
+    if (confirm == true) {
+      final url = 'http://localhost:3000/auth/bookings/confirm/$bookingId';
+
+      try {
+        final response = await http.put(Uri.parse(url));
+
+        if (response.statusCode == 200) {
+          // Successfully confirmed booking
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Booking dikonfirmasi!')),
+          );
+          // Optionally, update the UI or fetch the updated booking list
+        } else {
+          // Failed to confirm booking
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Gagal mengkonfirmasi booking.')),
+          );
+        }
+      } catch (e) {
+        // Error during the request
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Gagal mengkonfirmasi booking.')),
+          SnackBar(content: Text('Error mengkonfirmasi booking.')),
         );
       }
-    } catch (e) {
-      // Error during the request
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error mengkonfirmasi booking.')),
-      );
     }
   }
 }
