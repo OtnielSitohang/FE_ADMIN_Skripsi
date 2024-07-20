@@ -6,7 +6,7 @@ class User {
   final String nama_lengkap;
   final String email;
   final String tempat_tinggal;
-  final DateTime tanggal_lahir; 
+  final DateTime tanggal_lahir;
   final String role;
   final String? foto_base64;
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontadmin/models/UserProvider.dart';
 import 'package:frontadmin/services/auth_service.dart';
+import 'package:frontadmin/services/ubahpassword_service.dart';
 import 'package:provider/provider.dart';
 import 'package:frontadmin/services/theme_provider.dart';
 import 'package:frontadmin/app_router.dart';
@@ -12,6 +13,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
         Provider<AuthService>(create: (_) => AuthService()),
+        Provider<UbahPasswordService>(create: (_) => UbahPasswordService()),
       ],
       child: MyApp(),
     ),

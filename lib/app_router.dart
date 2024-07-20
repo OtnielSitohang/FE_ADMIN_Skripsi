@@ -10,6 +10,7 @@ import 'package:frontadmin/pages/login_page.dart';
 import 'package:frontadmin/pages/pengaturan_page.dart';
 import 'package:frontadmin/pages/KonfirmasiLapanganPage.dart';
 import 'package:frontadmin/pages/TambahCustomerPage.dart';
+import 'package:frontadmin/pages/ubah_password_page.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -38,6 +39,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PengaturanPage());
       case '/pengaturanAkun':
         return MaterialPageRoute(builder: (_) => PengaturanAkunPage());
+      case '/ubahpassword':
+        return MaterialPageRoute(builder: (_) => UbahPasswordPage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

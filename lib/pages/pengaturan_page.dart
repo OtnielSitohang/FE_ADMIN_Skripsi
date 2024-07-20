@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontadmin/pages/ubah_password_page.dart';
 import 'package:provider/provider.dart';
 import '../services/theme_provider.dart';
 
@@ -33,9 +34,10 @@ class PengaturanPage extends StatelessWidget {
             leading: Icon(Icons.lock),
             title: Text('Ubah Password'),
             onTap: () {
-              // Add navigation to the password change page here
+              Navigator.pushNamed(context, '/ubahpassword');
             },
           ),
+
           ListTile(
             leading: Icon(Icons.notifications),
             title: Text('Notifikasi'),
