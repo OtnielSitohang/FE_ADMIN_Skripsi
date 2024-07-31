@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:frontadmin/global/url.dart';
 import 'package:http/http.dart' as http;
 
 class PenggunaService {
@@ -11,7 +12,7 @@ class PenggunaService {
     required String tempatTinggal,
     required String role,
   }) async {
-    final url = Uri.parse('http://localhost:3000/auth/register');
+    final url = Uri.parse('$baseUrl/register');
 
     final Map<String, dynamic> penggunaData = {
       'username': username,
@@ -23,6 +24,8 @@ class PenggunaService {
       'role': role,
     };
 
+    print('Sending data: ${jsonEncode(penggunaData)}'); // Debugging statement
+
     try {
       final response = await http.post(
         url,
@@ -32,15 +35,22 @@ class PenggunaService {
         body: jsonEncode(penggunaData),
       );
 
+      print('Response status: ${response.statusCode}'); // Debugging statement
+      print('Response body: ${response.body}'); // Debugging statement
+
       if (response.statusCode == 201) {
         // Jika berhasil menambahkan pengguna
         return;
       } else {
         // Jika gagal menambahkan pengguna
-        throw Exception('Failed to add user');
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        throw Exception(
+          'Failed to add user: ${responseData['message'] ?? 'No error message provided'}',
+        );
       }
     } catch (e) {
       // Handle error
+      print('Error: $e'); // Debugging statement
       throw Exception('Failed to add user: $e');
     }
   }

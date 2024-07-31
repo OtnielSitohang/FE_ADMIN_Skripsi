@@ -1,14 +1,15 @@
 import 'dart:convert';
+import 'package:frontadmin/global/url.dart';
 import 'package:http/http.dart' as http;
 
 class LapanganService {
-  static const String baseUrl = 'http://localhost:3000/auth/lapangan';
+  // static const String baseUrl = 'http://localhost:3000/auth/lapangan';
 
   static Future<String> createLapangan(
       int jenisLapanganId, String namaLapangan, int harga) async {
     try {
       final response = await http.post(
-        Uri.parse(baseUrl),
+        Uri.parse('$baseUrl/lapangan'),
         body: jsonEncode({
           'jenis_lapangan_id': jenisLapanganId,
           'nama_lapangan': namaLapangan,

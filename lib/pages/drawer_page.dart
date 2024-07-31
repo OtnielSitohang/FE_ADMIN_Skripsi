@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:frontadmin/models/user.dart';
 import 'package:frontadmin/pages/KonfirmasiLapanganPage.dart';
@@ -95,6 +98,15 @@ class _DrawerPageState extends State<DrawerPage> {
 
   @override
   Widget build(BuildContext context) {
+    String? base64String = widget.user.foto_base64;
+
+    // Decode base64 string menjadi Uint8List
+    Uint8List? imageBytes;
+    try {
+      imageBytes = base64Decode(base64String ?? "");
+    } catch (e) {
+      print('Error decoding base64: $e');
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Admin Dashboard'),
@@ -107,6 +119,8 @@ class _DrawerPageState extends State<DrawerPage> {
               accountEmail: Text(widget.user.email),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.white,
+                backgroundImage:
+                    imageBytes != null ? MemoryImage(imageBytes) : null,
               ),
             ),
             ListTile(

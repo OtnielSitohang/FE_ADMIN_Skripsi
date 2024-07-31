@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontadmin/global/url.dart';
 import 'package:frontadmin/models/Booking.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -13,57 +14,122 @@ class BookingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(12.0),
+      elevation: 5.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Nama Lapangan: ${booking.nama_lapangan}",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                Icon(Icons.sports_soccer, color: Colors.blue, size: 30.0),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Nama Lapangan: ${booking.nama_lapangan}",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Jenis Lapangan: ${booking.jenis_lapangan}",
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Icon(Icons.category, color: Colors.green, size: 30.0),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Jenis Lapangan: ${booking.jenis_lapangan}",
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 5),
-            Text(
-              "Booking oleh: ${booking.nama_pengguna}",
-              style: TextStyle(fontSize: 14),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Icon(Icons.person, color: Colors.orange, size: 30.0),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Booking oleh: ${booking.nama_pengguna}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Tanggal Booking: ${_formatDateTime(booking.tanggalBooking)}",
-              style: TextStyle(fontSize: 14),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Icon(Icons.date_range, color: Colors.purple, size: 30.0),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Tanggal Booking: ${_formatDateTime(booking.tanggalBooking)}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              "Tanggal Penggunaan: ${_formatDateTime(booking.tanggalPenggunaan)}",
-              style: TextStyle(fontSize: 14),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Icon(Icons.calendar_today, color: Colors.red, size: 30.0),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Tanggal Penggunaan: ${_formatDateTime(booking.tanggalPenggunaan)}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 5),
-            Text(
-              "Sesi: ${booking.sesi}",
-              style: TextStyle(fontSize: 14),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Icon(Icons.access_time, color: Colors.cyan, size: 30.0),
+                SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    "Sesi: ${booking.sesi}",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
+                ElevatedButton.icon(
                   onPressed: () {
                     _showBuktiBayarDialog(context, booking);
-                    onBookingChanged();
                   },
-                  child: Text("Lihat Bukti Bayar"),
+                  icon: Icon(Icons.visibility),
+                  label: Text("Lihat Bukti Bayar"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                  ),
                 ),
-                ElevatedButton(
+                ElevatedButton.icon(
                   onPressed: booking.statusKonfirmasi == '0'
                       ? () {
                           _confirmBooking(context, booking.id);
-                          onBookingChanged();
                         }
                       : null,
-                  child: Text("Konfirmasi"),
+                  icon: Icon(Icons.check),
+                  label: Text("Konfirmasi"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
                 ),
               ],
             ),
@@ -81,28 +147,36 @@ class BookingCard extends StatelessWidget {
   }
 
   void _showBuktiBayarDialog(BuildContext context, Booking booking) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Bukti Pembayaran oleh ${booking.nama_pengguna}"),
-          content: Container(
-            child: Image.memory(
-              base64Decode(booking.buktiPembayaran),
-              fit: BoxFit.contain,
+    try {
+      final imageData = base64Decode(booking.buktiPembayaran);
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Bukti Pembayaran oleh ${booking.nama_pengguna}"),
+            content: Container(
+              width: double.maxFinite,
+              child: Image.memory(
+                imageData,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Tutup'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+            actions: <Widget>[
+              TextButton(
+                child: Text('Tutup'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Gagal menampilkan bukti bayar: $e')),
+      );
+    }
   }
 
   void _confirmBooking(BuildContext context, int bookingId) async {
@@ -135,7 +209,7 @@ class BookingCard extends StatelessWidget {
 
     // Jika pengguna mengkonfirmasi, lanjutkan dengan request HTTP
     if (confirm == true) {
-      final url = 'http://localhost:3000/auth/bookings/confirm/$bookingId';
+      final url = '$baseUrl/bookings/confirm/$bookingId';
 
       try {
         final response = await http.put(Uri.parse(url));
