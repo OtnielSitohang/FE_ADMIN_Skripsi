@@ -42,4 +42,40 @@ class VoucherService {
       throw Exception('Failed to add voucher');
     }
   }
+
+  Future<void> updateVoucher({
+    required int id,
+    String? kode,
+    int? diskon,
+    int? status,
+    String? tanggalSelesai,
+    int? batasPenggunaan,
+  }) async {
+    final Map<String, dynamic> body = {};
+    if (kode != null) body['kode'] = kode;
+    if (diskon != null) body['diskon'] = diskon;
+    if (status != null) body['status'] = status;
+    if (tanggalSelesai != null) body['tanggal_selesai'] = tanggalSelesai;
+    if (batasPenggunaan != null) body['batas_penggunaan'] = batasPenggunaan;
+
+    print('Updating voucher with id: $id');
+    print('Request body: $body');
+
+    final response = await http.put(
+      Uri.parse('$baseUrlApi/voucher/$id'), // Pastikan ID dikirim di URL
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(body),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update voucher');
+    }
+  }
+
+  
 }

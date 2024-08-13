@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontadmin/pages/EditVoucherPage.dart';
 import 'package:frontadmin/services/voucher_service.dart'; // Ganti dengan path yang benar
 
 class VoucherPage extends StatefulWidget {
@@ -87,7 +88,17 @@ class _VoucherPageState extends State<VoucherPage> {
                           ),
                         ),
                         onTap: () {
-                          // Implement action on tap if needed
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  EditVoucherPage(voucher: voucher),
+                            ),
+                          ).then((updated) {
+                            if (updated != null && updated) {
+                              _fetchVouchers(); // Refresh voucher list if updated
+                            }
+                          });
                         },
                       ),
                     );
