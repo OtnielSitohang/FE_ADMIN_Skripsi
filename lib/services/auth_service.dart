@@ -7,7 +7,7 @@ import '../global/url.dart';
 class AuthService {
   Future<User?> login(String username, String password) async {
     try {
-      final url = Uri.parse('$baseUrl/login');
+      final url = Uri.parse('$baseUrlauth/login');
       final response = await http.post(
         url,
         headers: <String, String>{'Content-Type': 'application/json'},
@@ -39,7 +39,7 @@ class AuthService {
   Future<Map<String, dynamic>?> updateProfile(User updatedUser) async {
     try {
       final response = await http.put(
-        Uri.parse('$baseUrl/pengguna/${updatedUser.id}'),
+        Uri.parse('$baseUrlauth/pengguna/${updatedUser.id}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

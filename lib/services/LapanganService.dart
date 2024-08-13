@@ -9,7 +9,7 @@ class LapanganService {
       int jenisLapanganId, String namaLapangan, int harga) async {
     try {
       final response = await http.post(
-        Uri.parse('$baseUrl/lapangan'),
+        Uri.parse('$baseUrlApi/lapangan'),
         body: jsonEncode({
           'jenis_lapangan_id': jenisLapanganId,
           'nama_lapangan': namaLapangan,

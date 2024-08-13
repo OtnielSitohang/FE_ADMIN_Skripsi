@@ -209,7 +209,7 @@ class BookingCard extends StatelessWidget {
 
     // Jika pengguna mengkonfirmasi, lanjutkan dengan request HTTP
     if (confirm == true) {
-      final url = '$baseUrl/bookings/confirm/$bookingId';
+      final url = '$baseUrlApi/bookings/confirm/$bookingId';
 
       try {
         final response = await http.put(Uri.parse(url));

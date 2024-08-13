@@ -5,7 +5,7 @@ import 'package:frontadmin/models/dashboard_model.dart';
 
 class DashboardService {
   Future<List<NewUserData>> getNewUsersPerMonth() async {
-    final response = await http.get(Uri.parse('$baseUrl/newuserspermonth'));
+    final response = await http.get(Uri.parse('$baseUrlApi/newuserspermonth'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       return jsonData.map((json) => NewUserData.fromJson(json)).toList();
@@ -15,7 +15,7 @@ class DashboardService {
   }
 
   Future<List<BookingPerMonth>> getBookingsPerMonth() async {
-    final response = await http.get(Uri.parse('$baseUrl/bookingspermonth'));
+    final response = await http.get(Uri.parse('$baseUrlApi/bookingspermonth'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       return jsonData.map((json) => BookingPerMonth.fromJson(json)).toList();
@@ -26,7 +26,7 @@ class DashboardService {
 
   Future<List<BookingPerJenisLapangan>> getBookingsPerJenisLapangan() async {
     final response =
-        await http.get(Uri.parse('$baseUrl/bookingsperjenislapangan'));
+        await http.get(Uri.parse('$baseUrlApi/bookingsperjenislapangan'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       return jsonData
@@ -38,7 +38,7 @@ class DashboardService {
   }
 
   Future<List<RevenuePerMonth>> getRevenuePerMonth() async {
-    final response = await http.get(Uri.parse('$baseUrl/revenuepermonth'));
+    final response = await http.get(Uri.parse('$baseUrlApi/revenuepermonth'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       return jsonData.map((json) => RevenuePerMonth.fromJson(json)).toList();
@@ -48,7 +48,7 @@ class DashboardService {
   }
 
   Future<List<BookingByStatus>> getBookingsByStatus() async {
-    final response = await http.get(Uri.parse('$baseUrl/bookingsbystatus'));
+    final response = await http.get(Uri.parse('$baseUrlApi/bookingsbystatus'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       return jsonData.map((json) => BookingByStatus.fromJson(json)).toList();
@@ -58,7 +58,7 @@ class DashboardService {
   }
 
   Future<List<BookingPerUser>> getBookingsPerUser() async {
-    final response = await http.get(Uri.parse('$baseUrl/bookingsperuser'));
+    final response = await http.get(Uri.parse('$baseUrlApi/bookingsperuser'));
     if (response.statusCode == 200) {
       final List<dynamic> jsonData = json.decode(response.body);
       return jsonData.map((json) => BookingPerUser.fromJson(json)).toList();

@@ -11,6 +11,8 @@ class KonfirmasiLapanganPage extends StatefulWidget {
 
 class _KonfirmasiLapanganPageState extends State<KonfirmasiLapanganPage> {
   late Future<List<Booking>> futureBookings;
+  final BookingService _bookingService =
+      BookingService(); // Inisialisasi BookingService
 
   @override
   void initState() {
@@ -20,7 +22,7 @@ class _KonfirmasiLapanganPageState extends State<KonfirmasiLapanganPage> {
 
   void fetchData() {
     setState(() {
-      futureBookings = fetchBookings().then((bookings) {
+      futureBookings = _bookingService.fetchBookings().then((bookings) {
         // Mengurutkan data berdasarkan status_konfirmasi dan tanggal_penggunaan
         bookings.sort((a, b) {
           // Urutkan berdasarkan status_konfirmasi (0 di atas 1)
@@ -45,7 +47,7 @@ class _KonfirmasiLapanganPageState extends State<KonfirmasiLapanganPage> {
         actions: [
           IconButton(
             icon: Icon(Icons.refresh),
-            onPressed: fetchData, // Menambahkan tombol refresh
+            onPressed: fetchData, 
           ),
         ],
       ),

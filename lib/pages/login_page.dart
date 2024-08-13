@@ -51,8 +51,7 @@ class _LoginPageState extends State<LoginPage> {
     } catch (e) {
       setState(() {
         _isLoading = false;
-        _errorMessage =
-            'Username Atau Password Salah'; // Optional: Display error message
+        _errorMessage = 'Username Atau Password Salah';
       });
     }
   }

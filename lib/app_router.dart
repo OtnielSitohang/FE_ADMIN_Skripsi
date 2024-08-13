@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:frontadmin/models/user.dart';
 import 'package:frontadmin/pages/LaporanPage.dart';
+import 'package:frontadmin/pages/PageBooking.dart';
 import 'package:frontadmin/pages/PengaturanAkunPage%20.dart';
 import 'package:frontadmin/pages/TambahAdminPage.dart';
 import 'package:frontadmin/pages/TambahLapanganPage.dart';
+import 'package:frontadmin/pages/Voucher.dart';
+import 'package:frontadmin/pages/addVoucher.dart';
 import 'package:frontadmin/pages/dashboard_admin_pages.dart';
 import 'package:frontadmin/pages/drawer_page.dart';
 import 'package:frontadmin/pages/login_page.dart';
@@ -37,10 +40,16 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => LaporanPage());
       case '/pengaturan':
         return MaterialPageRoute(builder: (_) => PengaturanPage());
+      case '/booking':
+        return MaterialPageRoute(builder: (_) => BookingPage());
       case '/pengaturanAkun':
         return MaterialPageRoute(builder: (_) => PengaturanAkunPage());
       case '/ubahpassword':
         return MaterialPageRoute(builder: (_) => UbahPasswordPage());
+      case '/tambahVoucher':
+        return MaterialPageRoute(builder: (_) => VoucherPage());
+      case '/add-voucher':
+        return MaterialPageRoute(builder: (_) => AddVoucherPage());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

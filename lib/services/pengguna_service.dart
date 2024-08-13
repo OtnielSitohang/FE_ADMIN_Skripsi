@@ -12,7 +12,7 @@ class PenggunaService {
     required String tempatTinggal,
     required String role,
   }) async {
-    final url = Uri.parse('$baseUrl/register');
+    final url = Uri.parse('$baseUrlauth/register');
 
     final Map<String, dynamic> penggunaData = {
       'username': username,

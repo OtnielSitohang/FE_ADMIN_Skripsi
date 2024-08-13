@@ -32,7 +32,7 @@ class UbahPasswordService {
       int userId, String oldPassword, String newPassword) async {
     try {
       final response = await http.put(
-        Uri.parse('$baseUrl/ubahPassword/$userId'),
+        Uri.parse('$baseUrlauth/ubahPassword/$userId'),
         body: jsonEncode({
           'oldPassword': oldPassword,
           'newPassword': newPassword,

@@ -4,7 +4,7 @@ import '../global/url.dart'; // Pastikan URL ini berisi baseUrl global
 
 class UserService {
   Future<Map<String, dynamic>> fetchUserData() async {
-    final response = await http.get(Uri.parse('$baseUrl/users'));
+    final response = await http.get(Uri.parse('$baseUrlApi/users'));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
@@ -22,7 +22,7 @@ class UserService {
 
   Future<void> resetPassword(int userId) async {
     final response = await http.post(
-      Uri.parse('$baseUrl/resetpassword/$userId'),
+      Uri.parse('$baseUrlApi/resetpassword/$userId'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
