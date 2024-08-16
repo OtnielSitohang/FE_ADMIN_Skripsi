@@ -21,7 +21,7 @@ class BookingService {
     required String tanggal_booking,
     required String tanggal_penggunaan,
     required String sesi,
-    required double harga,
+  required double harga,
     required String foto_base64,
   }) async {
     final response = await http.post(
